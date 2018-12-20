@@ -1,0 +1,1 @@
+let baseUrl=(name)=>`css/${name}.css`;export default {    red:baseUrl('red')}
