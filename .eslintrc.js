@@ -10,6 +10,8 @@ module.exports = {
     layer:true,
     dialog:true,
     _t:true,
+    ser:true,
+    Sly:true,
   },
   'extends': [
     'plugin:vue/essential',

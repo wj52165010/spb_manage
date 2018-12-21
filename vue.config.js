@@ -27,7 +27,10 @@ module.exports = {
 
                 'layer':path.resolve(__dirname, './src/libraries/layer-v3.1.1/layer/layer.js'),
                 'tool':path.resolve(__dirname,'./src/wraplib/tool.js'),
-                'dialog':path.resolve(__dirname,'./src/wraplib/dialog.js')
+                'dialog':path.resolve(__dirname,'./src/wraplib/dialog.js'),
+                'ser':path.resolve(__dirname,'./src/wraplib/server.js'),
+                'scroll':path.resolve(__dirname,'./src/wraplib/scroll.js'),
+                'event':path.resolve(__dirname,'./src/wraplib/event.js'),
             }
         },
         plugins:[
@@ -35,7 +38,8 @@ module.exports = {
                 $:'jquery',
                 jQuery:'jquery',
                 _t:['tool','default'],
-                dialog:['dialog','default']
+                dialog:['dialog','default'],
+                ser:['ser','default']
             }),
             new webpack.DllReferencePlugin({
                 context: __dirname,
