@@ -26,3 +26,41 @@
 .icon-volume-up:before { content: "\E623"; }
 
 
+@charset "UTF-8";
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -o-animation-name: fadeIn;
+  -o-animation-duration: 1s;
+  -o-animation-fill-mode: both;
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-name: fadeIn;
+  -moz-animation-duration: 1s;
+  -moz-animation-fill-mode: both;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+

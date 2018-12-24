@@ -10,7 +10,8 @@ module.exports = {
             'jquery',
             'axios',
             'bootstrap/scss/custom.scss',
-            path.resolve('./src/assets/fonticons/iconfont.css')
+            path.resolve('./src/assets/fonticons/iconfont.css'),
+            path.resolve('./src/assets/Animate.css')
             ],
   },
   output: {

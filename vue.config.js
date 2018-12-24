@@ -14,6 +14,7 @@ module.exports = {
     baseUrl:'',
     lintOnSave: true,
     filenameHashing:false,
+    runtimeCompiler:true,
     themes:themeNames || [],
     pages:{
       index:path.resolve(__dirname,'./src/main.js'),
@@ -25,7 +26,7 @@ module.exports = {
                 'lib':path.resolve(__dirname,'./src/libraries'),
                 'assets':path.resolve(__dirname,'./src/assets'),
 
-                'layer':path.resolve(__dirname, './src/libraries/layer-v3.1.1/layer/layer.js'),
+                'layer':path.resolve(__dirname, './src/libraries/layer/layer.js'),
                 'tool':path.resolve(__dirname,'./src/wraplib/tool.js'),
                 'dialog':path.resolve(__dirname,'./src/wraplib/dialog.js'),
                 'ser':path.resolve(__dirname,'./src/wraplib/server.js'),
@@ -47,5 +48,13 @@ module.exports = {
             })
         ],
         
+    },
+    pluginOptions: {
+        'style-resources-loader': {
+        'patterns': [
+            path.resolve(__dirname, 'src/css/variables.less'),
+            ],
+            preProcessor: 'less'
+        }
     }
 }

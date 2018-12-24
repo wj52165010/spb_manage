@@ -1,8 +1,10 @@
 /*************************** 页面刷新混入对象(重置页面初始化数据,重置页面包含组件状态) ***************************/
 export default{
     mounted(){
-        if(!this.$blnRefresh) return;//是否需要刷新功能
-        
+        let oriOptions=this.$vnode?this.$vnode.componentOptions.Ctor.options:{};
+
+        if(!oriOptions.refresh) return;//是否需要刷新功能
+
         this.$once('hook:mounted',()=>{
             setTimeout(()=>{
                 this._cloneData={...this.$data}
