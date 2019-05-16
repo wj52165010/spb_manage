@@ -8,10 +8,10 @@ module.exports = {
   entry: {
     vendor: [
             'jquery',
-            'axios',
             'bootstrap/scss/custom.scss',
             path.resolve('./src/assets/fonticons/iconfont.css'),
-            path.resolve('./src/assets/Animate.css')
+            path.resolve('./src/assets/Animate.css'),
+            path.resolve('./src/libraries/underscore/index.js')
             ],
   },
   output: {

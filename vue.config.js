@@ -25,13 +25,13 @@ module.exports = {
             alias:{
                 'lib':path.resolve(__dirname,'./src/libraries'),
                 'assets':path.resolve(__dirname,'./src/assets'),
-
                 'layer':path.resolve(__dirname, './src/libraries/layer/layer.js'),
                 'tool':path.resolve(__dirname,'./src/wraplib/tool.js'),
                 'dialog':path.resolve(__dirname,'./src/wraplib/dialog.js'),
-                'ser':path.resolve(__dirname,'./src/wraplib/server.js'),
+                'ser':path.resolve(__dirname,'./src/wraplib/server/server.js'),
                 'scroll':path.resolve(__dirname,'./src/wraplib/scroll.js'),
                 'event':path.resolve(__dirname,'./src/wraplib/event.js'),
+                '_':path.resolve(__dirname,'./src/libraries/underscore/index.js')
             }
         },
         plugins:[
@@ -40,7 +40,8 @@ module.exports = {
                 jQuery:'jquery',
                 _t:['tool','default'],
                 dialog:['dialog','default'],
-                ser:['ser','default']
+                ser:['ser','default'],
+                _:'_'
             }),
             new webpack.DllReferencePlugin({
                 context: __dirname,

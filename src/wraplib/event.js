@@ -15,6 +15,7 @@ let EventMap=(eventName,truecb,falsecb)=>{
             res.unsubscribe();
         }
     };
+
 //页面大小改变事件(注册或监听)
 export const ListenResize = (cb)=>{
 
@@ -22,4 +23,12 @@ export const ListenResize = (cb)=>{
         (o)=>o.subscribe(cb),
         ()=>fromEvent(window,'resize').pipe(debounceTime(200))
     )
+}
+
+//页面元素单击事件(节流阀)
+export const ListenClick = (dom,cb)=>{
+    return fromEvent(dom,'click')
+           .pipe(debounceTime(200))
+           .subscribe(cb)
+           .unsubscribe;
 }

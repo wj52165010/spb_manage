@@ -12,6 +12,7 @@ module.exports = {
     _t:true,
     ser:true,
     Sly:true,
+    _:true,
   },
   'extends': [
     'plugin:vue/essential',

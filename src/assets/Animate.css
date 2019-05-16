@@ -35,3 +35,77 @@
   animation-fill-mode: both;
 }
 
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoomIn {
+  -o-animation-name: zoomIn;
+  -o-animation-duration: .5s;
+  -o-animation-fill-mode: both;
+  -webkit-animation-name: zoomIn;
+  -webkit-animation-duration: .5s;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-name: zoomIn;
+  -moz-animation-duration: .5s;
+  -moz-animation-fill-mode: both;
+  animation-name: zoomIn;
+  animation-duration: .5s;
+  animation-fill-mode: both;
+}
+
+
+@-webkit-keyframes flicker {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flicker {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+.flicker{
+  -o-animation-name: flicker;
+  -o-animation-duration: 1s;
+  -o-animation-iteration-count:infinite;
+  -o-animation-fill-mode: backwards;
+  -o-animation-timing-function:linear;
+  -o-animation-animation-direction:alternate;
+  -webkit-animation-name: flicker;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: backwards;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-timing-function:linear;
+  -webkit-animation-direction:alternate;
+  -moz-animation-name: flicker;
+  -moz-animation-duration: 1s;
+  -moz-animation-fill-mode: backwards;
+  -moz-animation-iteration-count:infinite;
+  -moz-animation-timing-function:linear;
+  -moz-animation-direction:alternate;
+  animation-name: flicker;
+  animation-duration: 1s;
+  animation-fill-mode: backwards;
+  animation-iteration-count:infinite;
+  animation-timing-function:linear;
+  animation-direction:alternate;
+}
+

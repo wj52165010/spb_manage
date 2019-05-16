@@ -2,7 +2,7 @@
   <div class="home">
     <Header />
     <div style="height:calc(100% - 100px);width:100%;">
-      <PageSwitch ref="PageSwitch" />
+      <PageSwitch ref="PageSwitch" @ShowPage="showPage" />
     </div>
     <Footer />
   </div>
@@ -18,7 +18,6 @@ import Footer from '@/components/Footer'
 export default {
   name: 'home',
   mixins: [themeMixin],
-  refresh:true,
   components: {PageSwitch,Header,Footer},
   data(){
     return {
@@ -31,9 +30,9 @@ export default {
     popMenu(){
       this.$msg('123');
     },
-    // refresh(){
-    //   console.log('说得');
-    // }
+    showPage(){
+      this.$refs.PageSwitch.show('Btest');
+    }
   }
 }
 </script>

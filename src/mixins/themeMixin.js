@@ -8,7 +8,7 @@ export default {
         Theme(v){
             Object.values(theme).forEach((v)=>{
                 $(`link[href="${v}"]`).remove();
-              });
+            });
             _t.loadMulFile([theme[v]]);
         }
     }

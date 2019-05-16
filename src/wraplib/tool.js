@@ -1,7 +1,5 @@
 // 工具包
 /* eslint-disable */
-import Vue from 'vue'
-
 
 export default {
     toString:Object.prototype.toString,
@@ -11,11 +9,11 @@ export default {
     isObject:function(value){return value != null && typeof value === 'object';},
     isString:function(value){return typeof value === 'string';},
     isNumber:function(value){return typeof value === 'number';},
-    isDate:function(value){return tool.toString.call(value) === '[object Date]';},
-    isArray:function(value){return tool.toString.call(value) === '[object Array]';},
+    isDate:function(value){return Object.prototype.toString.call(value) === '[object Date]';},
+    isArray:function(value){return Object.prototype.toString.call(value) === '[object Array]';},
     isFunction:function(value){return typeof value === 'function';},
-    isRegExp:function(value) {return tool.toString.call(value) === '[object RegExp]';},
-    isFile:function(obj) {return tool.toString.call(obj) === '[object File]';},
+    isRegExp:function(value) {return Object.prototype.toString.call(value) === '[object RegExp]';},
+    isFile:function(obj) {return Object.prototype.toString.call(obj) === '[object File]';},
     isBoolean:function(value) {return typeof value === 'boolean';},
     isWindow:function(obj) {return obj && obj.document && obj.location && obj.alert && obj.setInterval;},
     guid() {
@@ -116,50 +114,6 @@ export default {
             delete context.Fx_DelayTimerId;
             func.apply(context, arguments || []);
         }, delaytime);
-    },
-    open(option){
-        let contentHtml=option.content || '';
-        var res = Vue.compile(contentHtml);
-        let tempV= new Vue({
-            watch:option.watch || {},
-            data:option.context || {},
-            components:option.components || {},
-            methods:option.methods || {},
-            mounted:option.mounted || function(){},
-            computed:option.computed || {},
-            render: res.render,
-            staticRenderFns: res.staticRenderFns,
-            store:option.store
-        });
-
-        let index=dialog.open({
-            type: 1,
-            skin:(option.skin || ''),  //加上边框'layui-dialog-rim '
-            title:option.title || '',
-            maxmin:option.maxmin || false,
-            shade: [1, 'rgba(0,0,0,.6)'],
-            id:option.id || '',
-            area:option.area || 'auto', //宽高
-            offset:option.offset || '',
-            move:option.move==undefined?'.layui-dialog-title':option.move,
-            content: `<div id="content"></div>`,
-            full:option.full ||function(){},
-            restore:option.restore || function(){},
-            sizeChange:option.sizeChange || function(){},
-            success: function(layero, index){
-                tempV.$mount(layero.find('#content')[0]);
-                option.close=()=>{dialog.close(index)};
-                option.selfData=tempV.$data;
-                option.$refs=tempV.$refs;
-                option.$vm=tempV;
-                if(option.initMaxMin){dialog.full(index);option.full && option.full();}
-                if(option.success){option.success(layero, index);}
-            },
-            cancel:function(layero, index){
-                if(option.pop_close){option.pop_close(layero, index);}
-                tempV.$destroy();
-            }
-        });
     },
     hasPro(obj){
         let count=0;
@@ -644,6 +598,7 @@ export default {
             onloaded(link, callback);
         } else { //加载js
             var scripts = document.getElementsByTagName('script');
+
             for (var i = 0; i < scripts.length; i++) {//是否已加载
                 if (scripts[i].src.indexOf(url) > -1 && callback && (callback.constructor === Function)) {
                     //已创建script
@@ -658,7 +613,7 @@ export default {
             var script = document.createElement('script');
             script.type = "text/javascript";
             script.src = url;
-            document.body.appendChild(script);
+            document.getElementsByTagName('head')[0].appendChild(script);
             onloaded(script, callback);
 
         }
@@ -667,8 +622,9 @@ export default {
         * 加载多个文件(js,css)
         * arr:文件地址数组
         * callback:回调函数
+        * blnSrc:是否为地址路径加载
         */
-    loadMulFile:function(loadarr,callback){
+    loadMulFile:function(loadarr,callback,blnSrc){
         var arr=this.Clone(loadarr);
         var s=this;
         
@@ -677,8 +633,9 @@ export default {
             if(arr.length==0){return;}
             var url= arr.shift();
             var fileSuffix=s.Match(url,s.Regular.FileSuffix);
-            if(fileSuffix=='js' || fileSuffix=='css'){
-                var blnJs=fileSuffix=='js';//是否是Js文件	
+
+            if(fileSuffix=='js' || fileSuffix=='css' || blnSrc){
+                var blnJs=fileSuffix=='js' || (blnSrc && fileSuffix!='css');//是否是Js文件	
                 s.loadJsCss(url,function(flag){
                     if(arr.length==0){
                         if(!callback){return;}

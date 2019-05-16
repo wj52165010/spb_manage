@@ -2,7 +2,7 @@
 <template>
     <transition name="fade">
       <keep-alive :include="pages">
-        <component :is="view"></component>
+        <component :is="view" v-on="$listeners"></component>
       </keep-alive>
     </transition>
 </template>
@@ -32,10 +32,13 @@ export default {
 
 <style lang="less" scoped>
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active{
   transition: opacity .2s;
 }
-.fade-enter, .fade-leave-to{
+.fade-enter{
   opacity: 0;
+}
+.fade-leave-to{
+  display:none;
 }
 </style>

@@ -1,16 +1,20 @@
 <template>
   <div class="about">
-    <input type="text" />
-    <button type="button" class="btn btn-default" @click="open()">（默认样式）Default</button>
+    <input type="text" v-model="name" />
+    <button type="button" class="btn btn-default" v-lock:click="()=>open(name)" >刷新页面</button>
+    <test v-on="$listeners" />
   </div>
 </template>
 <script>
 
+import test from '@/components/test'
 export default {
   name: 'Atest',
+  refresh:true,
+  components:{test},
   data(){
     return {
-      data:[1,2,3,1,1,1,1,1,1,1,1,1,1,3,1],
+      name:'2',
     }
   },
   created(){
@@ -18,16 +22,22 @@ export default {
   },
   methods:{
     open(){
-      _t.open(function(){
-        let param ={
+      this.$open({
           title:'测试天窗',
           area:'400px',
-          content:`<div>测试</div>`
-        };
-
-        return param;
-      }());
-    }
+          content:`<div @click="test()">{{a}}</div>`,
+          data:{
+            a:1
+          },
+          methods:{
+            test(){
+              this.a=2;
+              this.$caller.name='测试';
+              this.close();
+            }
+          }
+      });
+    },
   }
 }
 </script>
