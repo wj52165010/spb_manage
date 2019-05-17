@@ -1,0 +1,83 @@
+//页面容器样式
+
+
+//加载中容器样式
+.Loading(@col:#21273f){
+    @colOne:fadeout(@col,20%);
+    @colTwo:fadeout(@col,50%);
+    @colThree:red;
+
+    .Loading{
+        margin:auto;display:inline-block;position:relative;
+        background:linear-gradient(@colOne,@colOne),
+                   linear-gradient(@colOne,@colOne),
+                   linear-gradient(@colOne,@colOne),
+                   linear-gradient(@colOne,@colOne),
+                   linear-gradient(@colOne,@colOne),
+                   linear-gradient(@colOne,@colOne),
+                   linear-gradient(@colOne,@colOne),
+                   linear-gradient(@colOne,@colOne);
+        background-size:15px 2px,2px 15px;
+        background-position: top left,top left,
+                             top right,top right,
+                             bottom left,bottom left,
+                             bottom right,bottom right;
+        background-repeat: no-repeat;
+        border-radius:5px;
+        box-shadow:0px 0px 1px inset #333333;
+    }
+    .Loading:before{
+        content:'';
+        position:absolute;top:0px;left:0px;bottom:0px;right:0px;
+        background:linear-gradient(@colTwo,@colTwo);
+        background-size:calc(100% - 4px) calc(100% - 4px);
+        background-position:2px 2px;
+        background-repeat: no-repeat;
+        border-radius:5px;
+    }
+      
+    .Loading > div{
+        margin:10px;border-radius:5px;
+        position:relative;
+        font-size:12px;color:white;
+        background:linear-gradient(135deg,transparent 10px, @colThree 10px,transparent 12px),
+                   linear-gradient(135deg,
+                   transparent 32px,
+                   @colThree 33px,
+                   transparent 34px,
+                   transparent 35px,
+                   @colThree 36px,
+                   transparent 37px,
+                   transparent 38px,
+                   @colThree 39px,
+                   transparent 40px,
+                   ),
+                   linear-gradient(135deg,transparent 10px,@colOne 0%,@colTwo);
+        background-size:20px 20px,30px 30px,100% 100%;
+        background-position:top left,bottom right,top left;
+        background-repeat: no-repeat;
+    }
+    .Loading > div:before{
+        content: '';
+        position:absolute;
+        width:5px;
+        height:5px;
+        background:@colThree;
+        border-radius:50%;
+        top:10px;
+        left:-2.5px;
+        box-shadow:1px 0px 5px @colThree;
+    }
+    .Loading > div:after{
+        content:'';
+        position:absolute;
+        width:8px;
+        height:8px;
+        background:@colThree;
+        border-radius:50%;
+        top:-4px;
+        left:10px;
+        box-shadow:1px 0px 5px @colThree;
+    
+    }
+}

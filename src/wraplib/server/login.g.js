@@ -10,7 +10,6 @@ export default{
         this.baseBag.data= {token:token || ''};
         return this.post(this.baseBag);
     },
-
     /**
      * 注销账户(首页)
      * 
@@ -40,7 +39,7 @@ export default{
         pwd: ‘’ 
      * }
      */
-    login(data){
+    Login(data){
         this.baseBag.target='user';
         this.baseBag.method='login';
         this.baseBag.data=data || {};
@@ -49,7 +48,7 @@ export default{
     /**
      * 获取用户信息(/user/get)
      */
-    getUser(id){
+    GetUser(id){
         this.baseBag.target='user';
         this.baseBag.method='get';
         this.baseBag.data={user_id:id || ''};

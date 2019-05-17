@@ -1,3 +1,4 @@
+/* eslint-disable */
 <!-- 列表头插件 -->
 <!--<template>
     <div class="table-header">
@@ -38,7 +39,7 @@ export default {
       {
         class:{
           "table-header":true,
-          "bgCol":true
+          "bgColLine":true
         },
         props:{
           store:this.store

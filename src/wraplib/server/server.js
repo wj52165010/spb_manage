@@ -32,7 +32,7 @@ var post=(function(uri){
             if(res.msg.code!='successed' && res.msg.note){
                 layer.msg(res.msg.note);
             }
-            return res;
+            return res.biz_body;
         });
     }
 })(baseUri);

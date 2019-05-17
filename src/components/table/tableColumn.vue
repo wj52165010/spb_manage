@@ -1,3 +1,4 @@
+/* eslint-disable */
 <!-- 列表列插件 -->
 <template>
   <div class="table-column" :id="id" :class="{'table-column-block':blnEmpty}" @click="click()">

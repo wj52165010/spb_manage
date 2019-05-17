@@ -1,3 +1,4 @@
+/* eslint-disable */
 <!-- 列表行插件 -->
 <!--<template>
     <div class="table-row">
@@ -5,7 +6,6 @@
     </div>
 </template>-->
 <script>
-import Vue from 'vue'
 export default {
   name: 'v-table-row',
   props:['columns','store','headerstyle'],
@@ -110,12 +110,12 @@ export default {
       let dom =$(e.target || e.srcElement),dragNum=5;//可拖拽的区间
       if(!dom.attr('class') || (dom.attr('class') && dom.attr('class').indexOf('table-column')<0)) return;
       let w=dom.width(),clientX=e.clientX,left=dom.offset().left;
-      if(clientX>w+left || clientX<w+left-dragNum ){ dom[0].style.cursor='pointer'; return}; 
+      if(clientX>w+left || clientX<w+left-dragNum ){ dom[0].style.cursor='pointer'; return} 
       dom[0].style.cursor='e-resize';
 
     },
     //拖动列头改变列头宽度
-    header_mousedown(e,i){
+    header_mousedown(e){
         e.stopPropagation(); 
         let dom =$(e.target || e.srcElement);
         if(dom[0].style.cursor!='e-resize')return;
@@ -144,7 +144,6 @@ export default {
       let parentDom=$(this.$el);
       //列头宽度拖动处理
       if(this.blnDragColW && this.curDragHeaderW && this.curDragHeader){
-          let offset=this.curDragHeaderW.offset();
           let domSet=this.curDragHeader.offset();
           let move=e.clientX-parentDom.offset().left;
           let limit=domSet.left-parentDom.offset().left+20;
@@ -157,7 +156,7 @@ export default {
 
     },
     //拖动放开
-    header_mouseup(e,w){
+    header_mouseup(){
       this.blnDragColW=false;
       if(!this.curDragHeaderW)return;
       let width=this.curDragHeaderW.offset().left-this.curDragHeader.offset().left;

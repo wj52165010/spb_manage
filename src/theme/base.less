@@ -1,6 +1,8 @@
 //基础样式
+@import './container.less';
 .base-css(){
     .bgCol{background-color:@mainColor;}
+    .bgColLine{background:linear-gradient(135deg,fadeout(@mainColor,20%),fadeout(@mainColor,30%))};
     .footerCol{background-color:@footerColor;}
 
     //取消百度地图图标
@@ -8,7 +10,6 @@
 
     //图标鼠标放上效果
     .iconHover:hover{.transLine(); color:red;}
-
 
     //弹窗样式
     .layui-layer-title{background: @mainColor;color:white;}
@@ -22,6 +23,9 @@
         text-decoration: none;
     }
     .layui-layer-ico::before{content: "\e641";}
+
+    //加载中容器样式
+    .Loading(@mainColor)
 }
 
 

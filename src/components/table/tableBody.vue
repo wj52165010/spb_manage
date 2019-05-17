@@ -1,3 +1,4 @@
+/* eslint-disable */
 <!-- 列表体插件 -->
 <!--<template>
     <div class="tableBbody">
@@ -6,7 +7,6 @@
 </template>-->
 
 <script>
-import Vue from 'vue'
 import cRow from './tableRow'
 import Scroll from '@/components/Scroll'
 import Loading from '@/components/Loading'

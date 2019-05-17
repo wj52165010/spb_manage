@@ -633,9 +633,10 @@ export default {
             if(arr.length==0){return;}
             var url= arr.shift();
             var fileSuffix=s.Match(url,s.Regular.FileSuffix);
-
+	
             if(fileSuffix=='js' || fileSuffix=='css' || blnSrc){
-                var blnJs=fileSuffix=='js' || (blnSrc && fileSuffix!='css');//是否是Js文件	
+                var blnJs=fileSuffix=='js' || (!!blnSrc && fileSuffix!='css');//是否是Js文件
+                
                 s.loadJsCss(url,function(flag){
                     if(arr.length==0){
                         if(!callback){return;}

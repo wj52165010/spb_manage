@@ -1,7 +1,7 @@
 /*************************** 全局自动注入组件对象 *****************************/
 /* eslint-disable */
 import Vue from 'vue'
-let pageContext = require.context('@/views', true, /\.g\.vue$/)
+let pageContext = require.context('@/modules', true, /\.g\.vue$/)
 
 let importAll = (r) => { 
     let reg=/([^<>/\\\|:""\*\?]+)\.\w+$/;//匹配文件名称

@@ -1,9 +1,9 @@
 <template>
   <div class="EW_Map" :id="mapId">
-      <!--<v-table :listen="data" ref="listTable" :blnLoading="true">
+      <v-table :listen="data" ref="listTable" :blnLoading="true">
           <v-table-header>
               <v-table-column :width="200">
-                  dsfdsfds
+                  <span @click="test()">dsfdsfds</span>
               </v-table-column>
               <v-table-column >
                   dsfdsfds
@@ -36,7 +36,7 @@
                 </v-table-row>
               </template>
           </v-table-body>
-      </v-table>-->
+      </v-table>
   </div>
 </template>
 
@@ -47,8 +47,11 @@ import {AlarmMarker} from '@/wraplib/Map/marker'
 
 import  EWMapInfo from './EW_Map_Info'
 
+
+import themeMixin from '@/mixins/themeMixin'
 export default {
   name: 'EW_Map',
+  mixins:[themeMixin],
   components: {},
   data(){
     return {
@@ -60,8 +63,7 @@ export default {
     };
   },
   mounted(){
-   this.initMap();
-   //console.log(this.$store);
+   //this.initMap();
   },
   methods:{
     initMap(){
@@ -90,6 +92,9 @@ export default {
             marker.remove();
           }
         }
+    },
+    test(){
+      this.Theme('blue')
     }
   }
 }
