@@ -9,9 +9,10 @@ module.exports = {
     vendor: [
             'jquery',
             'bootstrap/scss/custom.scss',
-            path.resolve('./src/assets/fonticons/iconfont.css'),
-            path.resolve('./src/assets/Animate.css'),
-            path.resolve('./src/libraries/underscore/index.js')
+            path.resolve(__dirname,'./src/assets/fonticons/iconfont.css'),
+            path.resolve(__dirname,'./src/assets/Animate.css'),
+            path.resolve(__dirname,'./src/libraries/underscore/index.js'),
+            path.resolve(__dirname,'./src/libraries/datepicker/xdate.js'),
             ],
   },
   output: {

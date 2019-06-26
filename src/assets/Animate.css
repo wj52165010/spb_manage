@@ -109,3 +109,10 @@
   animation-direction:alternate;
 }
 
+.bound{
+	transition: all 0.3s cubic-bezier(1,-0.87,.39,1) 0s;
+	-moz-transition: all 0.3s cubic-bezier(1,-0.87,.39,1) 0s;
+	-ms-transition: all 0.3s cubic-bezier(1,-0.87,.39,1) 0s;
+	-webkit-transition: all 0.3s cubic-bezier(1,-0.87,.39,1) 0s;
+	-o-transition:all 0.3s cubic-bezier(1,-0.87,.39,1) 0s;
+ }

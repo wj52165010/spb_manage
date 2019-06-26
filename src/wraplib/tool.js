@@ -1,5 +1,16 @@
 // 工具包
 /* eslint-disable */
+String.prototype.trim = function (char, type) {
+    if (char) {
+        if (type == 'left') {
+            return this.replace(new RegExp('^\\'+char+'+', 'g'), '');
+        } else if (type == 'right') {
+            return this.replace(new RegExp('\\'+char+'+$', 'g'), '');
+        }
+        return this.replace(new RegExp('^\\'+char+'+|\\'+char+'+$', 'g'), '');
+    }
+    return this.replace(/^\s+|\s+$/g, '');
+}
 
 export default {
     toString:Object.prototype.toString,
@@ -23,14 +34,14 @@ export default {
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     },
     msg(res,successMsg,faildMsg){
-         let blnSuccessed=res.msg.code=='successed';
-         faildMsg=res.msg.isShowSysTip? res.msg.note:faildMsg || res.msg.note;
+         let blnSuccessed=res.code==0;
+         faildMsg=res.isShowSysTip? res.msg:faildMsg || res.msg;
          if(blnSuccessed){
              if(!successMsg){return blnSuccessed;}
-             dialog.msg(successMsg);
+             this.tipSuccess(successMsg);
          }else{
              if(faildMsg){
-                 dialog.msg(faildMsg);
+                this.tipFailure(faildMsg);
              }
          }
 
@@ -52,7 +63,18 @@ export default {
       if(args && args.length>=1){
         okfuncCallback=args.shift();
       }
-      dialog.confirm(title,{btn:option},(index)=>{okfuncCallback();dialog.close(index);},...args);
+      dialog.confirm(`<div>${title}</div>`,{btn:option},(index)=>{okfuncCallback();dialog.close(index);},...args);
+    },
+    confirmCanClose(title,blnClose,option,...args){
+        let okfuncCallback=function(){};
+        if(blnClose) {
+            if(args && args.length>=1){
+                okfuncCallback=args.shift();
+            }
+            okfuncCallback();
+        }else{
+            dialog.confirm(title,option,...args);
+        }
     },
     //NoBtnComfirm
     NoBtnComfirm(title,option,...args){
@@ -66,10 +88,10 @@ export default {
         dialog.msg(msg);
     },
     tipSuccess(msg){
-        dialog.msg(`<i class="fa fa-check-circle" style="font-size:30px;margin-right:10px;" /><span style="float: right;margin-top: 5px;">${msg}</span>`);
+        dialog.msg(`<i class="fa fa-check-circle" style="font-size:30px;margin-right:10px;color:white;" /><span style="float: right;margin-top: 5px;color:white;">${msg}</span>`);
     },
     tipFailure(msg){
-        dialog.msg(`<i class="fa fa-warning" style="font-size:30px;margin-right:10px;" /><span style="float: right;margin-top: 5px;">${msg}</span>`);
+        dialog.msg(`<i class="fa fa-warning" style="font-size:30px;margin-right:10px;color:white;" /><span style="float: right;margin-top: 5px;color:white;">${msg}</span>`);
     },
     show(option){
         dialog.open({
@@ -130,6 +152,7 @@ export default {
      * timeStr:日期字符串(yyyy-MM-dd hh:mm:ss)
      */
     Timestamp:function(timeStr){
+        if(!timeStr) return '';
         let result;
         if(timeStr instanceof Date){
             result=this.DateFormat(timeStr,'yyyy-MM-dd hh:mm:ss');
@@ -309,7 +332,7 @@ export default {
                 if(arr[i][childKey] && arr[i][childKey].length>0 && !blnDelNode){
                     counter.add();
                 
-                    arguments.callee.apply(this,[arr[i][childKey],childKey,func,counter,parentArr,deep+1,arr[i]]);
+                    exec.apply(this,[arr[i][childKey],childKey,func,counter,parentArr,deep+1,arr[i]]);
                 }
             }
             for(var j=0;j<delIndexs.length;j++){
@@ -330,7 +353,7 @@ export default {
 
             if(d){
                 counter.add();
-                arguments.callee.apply(this,[arr,d,filterFunc,func,counter]);
+                exec.apply(this,[arr,d,filterFunc,func,counter]);
             }
 
             counter.exec(d);
@@ -401,7 +424,7 @@ export default {
         //如果是Jquery对象需要转化为JS对象
         if (BlnJQuery) { dom = dom[0]; }
         //生成事件唯一标识
-        var id = queue + tool.guid(); //唯一标示符
+        var id = queue + this.guid(); //唯一标示符
         //判断是否已经注册了该事件
         if (!dom) { return; }
         if (dom[queue]) {
@@ -683,4 +706,14 @@ export default {
         if (str == null || str == "") return "";
         return str.match(regular) || "";
     },
+    /* 
+     * 将日期对象添加23:59:59一天最后的时分秒并转化成时间戳
+     * date:时间对象
+     */
+    DateTimestampByEndTime(dateObj){
+        if(!dateObj) return '';
+        dateObj.setHours(23,59,59);
+
+        return this.Timestamp(dateObj);
+    }
 };

@@ -6,7 +6,8 @@ export default {
         "http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js",
         "http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js",
         "http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js",
-        "http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css"
+        "http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css",
+        "http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js",
     ],
     "离线":[
         "baiduMap/css/bmap.css",

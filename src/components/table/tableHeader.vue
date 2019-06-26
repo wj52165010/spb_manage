@@ -39,7 +39,7 @@ export default {
       {
         class:{
           "table-header":true,
-          "bgColLine":true
+          "subBgColtwo":true
         },
         props:{
           store:this.store
@@ -91,12 +91,12 @@ export default {
 </script>
 <style scoped lang="less">
   @import './common.less';
-  .table-header{width:100%;height:@tableHeaderH;overflow: hidden;.border('bottom');}
+  .table-header{width:100%;height:@tableHeaderH;overflow: hidden;}
 
   //设置列的边界线
-  .table-header .table-column:first-child{.border('bottom');.border('right');}
-  .table-header .table-column:last-child{.border('bottom');}
-  .table-header .table-column:not(:first-child):not(:last-child){.border('bottom');.border('right');}
+  //.table-header .table-column:first-child{.border('bottom');.border('right');}
+  //.table-header .table-column:last-child{.border('bottom');}
+  //.table-header .table-column:not(:first-child):not(:last-child){.border('bottom');.border('right');}
 
   .table-header .table-row {color:white;}
 

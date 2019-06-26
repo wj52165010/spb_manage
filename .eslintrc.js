@@ -3,6 +3,7 @@ module.exports = {
   env: {
     node: true,
     commonjs:false,
+    es6:true,
   },
   globals:{
     $:true,
@@ -13,6 +14,12 @@ module.exports = {
     ser:true,
     Sly:true,
     _:true,
+    PublicNet:true,
+    BMapLib:true,
+    BMap:true,
+    moment:true,
+    io:true,
+    XDate:true,
   },
   'extends': [
     'plugin:vue/essential',

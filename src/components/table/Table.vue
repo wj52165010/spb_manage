@@ -85,14 +85,14 @@ export default {
       
     },
     reloadScroll(){
-      this.$slots.default[2].child.$children[0].reloadyScroll();
+      this.$slots.default[1].child.$children[0].reloadyScroll();
     }
   }
 }
 </script>
 <style scoped lang="less">
   @import './common.less';
-  .table{width:100%;height:100%;margin:0px;text-align:left;.border("");position:relative;}
+  .table{width:100%;height:100%;margin:0px;text-align:left;position:relative;color:#c7f6f9;font-size:14px;}
   .table .hiddencolumns{display:none;position:absolute;z-index:-1;}
   .table .table-body{height:~"calc(100% - @{tableHeaderH})"}
 

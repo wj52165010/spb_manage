@@ -12,7 +12,7 @@ let importAll = (r) => {
 export default{
     register(){
        
-        importAll(pageContext).forEach(m=>{
+        importAll(/* webpackPrefetch: true */pageContext).forEach(m=>{
             server.prototype=Object.assign(server.prototype,m.r(m.key).default);
         });
     }

@@ -3,11 +3,13 @@
     <div  v-show="show" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;font-size: 50px;z-index: 100;">
         <div style="display:table;width: 100%;height: 100%;">
             <div style="display: table-cell;vertical-align: middle;text-align: center;">
-                <div class="Loading">
+                <div class="Loading" v-if="!simple">
                   <div class="content zoomIn">
                     正在加载中...
                   </div>
                 </div>
+                
+                <i class="fa fa-spinner fa-pulse" v-if="simple"></i>
             </div>
         </div>
     </div>
@@ -16,6 +18,7 @@
 <script>
 export default {
   name: 'Loading',
+  props:['simple'],
   data () {
     return {
       show:true,

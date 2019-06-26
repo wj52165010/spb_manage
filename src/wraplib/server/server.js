@@ -1,7 +1,7 @@
 //接口主文件
 let url=window.url || '';
 
-let baseUri=url+'/api/v1';
+let baseUri=url+'';
 
 
 let baseBag={
@@ -18,43 +18,55 @@ let baseBag={
 
 var post=(function(uri){
     return (data)=>{
+        let path=data.path;
+        data.path=false;
+        if(data.data && data.data.page!=undefined){data.data.page++}
+
         return $.ajax({
-            type:'POST',
+            headers: {
+                token: data.token,
+            },
+            type:data.type || 'POST',
             //contentType:'multipart/form-data',
+            contentType:'application/json',
             dataType:'json',
             //jsonp:'callback',
-            url:`${uri}/${data.target}/${data.method}`,
-            data:{data:JSON.stringify(data)},
+            url:`${uri}/${data.method}${path && data.type!='PUT'?`/${_.values(data.data).join('/')}`:`${data.pathVal?`/${data.pathVal}`:''}`}`,
+            data:data.path?'':data.type=='GET'?data.data:JSON.stringify(data.data),//{data:JSON.stringify(data)},
             // error:function (XMLHttpRequest, textStatus, errorThrown) {
             //     //console.log(XMLHttpRequest.status);
             // }
         }).then(function(res){
-            if(res.msg.code!='successed' && res.msg.note){
-                layer.msg(res.msg.note);
-            }
-            return res.biz_body;
+            data.pathVal='';
+            // if(res.msg.code!='successed' && res.msg.note){
+            //     layer.msg(res.msg.note);
+            // }
+
+            return {code:res.code,msg:res.msg,biz_body:res.data};
         });
     }
 })(baseUri);
 
 export class server {
-    constructor(baseBag){
+    constructor(baseBag,baseUri){
         this.baseBag=baseBag;
         this.map=[6,19,13];//地图显示层级
         this.post=post;
         this.baseBag={
+            baseUri:baseUri,
             ver:'1.1.0',
             timestamp:'100000',
             session_id:'123',
-            userid:'test',
-            token:'123213'
+            userid:'1',
+            token:''
         };
 
         this.exportLimit=5000;             //导出限制条数
         this.netVersion=window.PublicNet;  //是否为互联网版
+        this.centerPoint={};//中心点
     }
 }
-export default  new server(baseBag);
+export default  new server(baseBag,baseUri);
 
 
 

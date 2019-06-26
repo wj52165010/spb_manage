@@ -22,7 +22,6 @@ export default {
   },
   render(h){
     let blnTmp=false;//行内子集是否为模板数据 
-
     let columns=_.filter(this.cols || [],c=>{
       return (c.data.directives && _.find(c.data.directives,d=>d.name=='show') && _.find(c.data.directives,d=>d.name=='show').value) ||
               (c.data.directives && !_.find(c.data.directives,d=>d.name=='show'))  ||
@@ -200,10 +199,9 @@ export default {
 </script>
 <style scoped lang="less">
   @import './common.less';
-  .table-row{min-height:@tableHeaderH;line-height:@tableHeaderH;.border('bottom');}
+  .table-row{height:@tableHeaderH;line-height:@tableHeaderH;}
   .table-row-item{float:left;height:100%;overflow:hidden;box-sizing: border-box;}
-  .table-row-item:first-child{.border('right');}
+  //.table-row-item:first-child{.border('right');}
   .table-row-item:last-child{}
-  .table-row-item:not(:first-child):not(:last-child){.border('right');}
-
+  //.table-row-item:not(:first-child):not(:last-child){.border('right');}
 </style>

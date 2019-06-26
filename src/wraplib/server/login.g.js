@@ -16,7 +16,8 @@ export default{
      * 
      */
     LoginOut(account){
-        this.baseBag.target='user';
+        //this.baseBag.target='user';
+        this.baseBag.type="POST"
         this.baseBag.method='logout';
         this.baseBag.data= {account:account || ''};
         return this.post(this.baseBag);
@@ -27,8 +28,9 @@ export default{
      * 
      */
     LoginForce(account){
-        this.baseBag.target='user';
-        this.baseBag.method='login_force';
+        //this.baseBag.target='user';
+        this.baseBag.type='POST'
+        this.baseBag.method='loginForce';
         this.baseBag.data= {account:account || ''};
         return this.post(this.baseBag);
     },
@@ -40,7 +42,8 @@ export default{
      * }
      */
     Login(data){
-        this.baseBag.target='user';
+        //this.baseBag.target='user';
+        this.baseBag.type="POST"
         this.baseBag.method='login';
         this.baseBag.data=data || {};
         return this.post(this.baseBag);

@@ -3,10 +3,10 @@ import {ListenResize} from 'event'
 export default {
     mounted(){
         if(!this.ResizeHandler) return;
-        let listenClose = ListenResize(()=>{
-            this.ResizeHandler();
+        let listenClose = ListenResize((e)=>{
+            this.ResizeHandler(e);
         })
-      
+
         this.$once('hook:beforeDestroy', function () {
             listenClose()
         });

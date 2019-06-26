@@ -18,7 +18,7 @@ let Dialog={
         var res = Vue.compile(contentHtml);
         let tempV= new Vue({
             watch:option.watch || {},
-            data:option.data || {},
+            data:option.data || option.context ||{},
             components:option.components || {},
             methods:option.methods || {},
             mounted:option.mounted || function(){},
@@ -27,10 +27,10 @@ let Dialog={
             staticRenderFns: res.staticRenderFns,
             store:s.$store
         });
-
         layer.open({
             type: 1,
             anim:0,
+            zIndex:3000,
             skin:(option.skin || ''),  //加上边框'layui-dialog-rim '
             title:option.title || '',
             maxmin:option.maxmin || false,
@@ -38,14 +38,14 @@ let Dialog={
             id:option.id || '',
             area:option.area || 'auto', //宽高
             offset:option.offset || '',
-            move:option.move==undefined?'.layui-dialog-title':option.move,
+            move:option.move==undefined?'.layui-layer-title':option.move,
             content: `<div id="content"></div>`,
             full:option.full ||function(){},
             restore:option.restore || function(){},
             sizeChange:option.sizeChange || function(){},
             success: function(layero, index){
                 tempV.$mount(layero.find('#content')[0]);
-                tempV.close=()=>{layer.close(index)};
+                tempV.close=()=>{layer.close(index);this.cancel();};
                 tempV.$caller=s;
                 if(option.initMaxMin){layer.full(index);option.full && option.full();}
                 if(option.success){option.success(layero, index);}

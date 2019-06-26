@@ -12,11 +12,14 @@ export default {
   data () {
     return {
       id:'col'+_t.guid(),
-      blnEmpty:!(this.$slots && this.$slots.default),
+      blnEmpty:!(this.$slots && this.$slots.default && (this.$slots.default[0].tag || this.$slots.default[0].text)),
     }
   },
   computed:{
   
+  },
+  beforeUpdate(){
+    this.blnEmpty=!(this.$slots && this.$slots.default && (this.$slots.default[0].tag || this.$slots.default[0].text));
   },
   methods:{
     click(){
@@ -26,9 +29,6 @@ export default {
       this.$emit('click');
     }
   },
-  mounted(){
-    //console.log(this.$slots.default);
-  }
 }
 </script>
 <style scoped lang="less">
@@ -36,4 +36,7 @@ export default {
     height:100%;width:100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;position:relative;text-align:center;
   }
   .table-column-block{display: inline-table;}
+
+  .table-column .clickItem{color: @linkColor;}
+  .table-column .clickItem:hover{ cursor: pointer;text-decoration: underline;}
 </style>

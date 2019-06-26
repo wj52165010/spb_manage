@@ -47,7 +47,7 @@ class Map{
         this.markers=null;
     }
 
-    markerRefresh(e){
+    markerRefresh(){
         _.each(this.markers,m=>m.refresh && m.refresh())
     }
 
@@ -63,8 +63,12 @@ class Map{
         this.markers.splice(index,1);
     }
 
-    static Point(Lat,Lng){
-        return new BMap.Point(Lat,Lng);
+    setMapStyle(style){
+        this.ins.setMapStyle(style);
+    }
+
+    static Point(Lng,Lat){
+        return new BMap.Point(Lng,Lat);
     }
 
     static Pixel(x,y){
@@ -86,7 +90,7 @@ class Map{
         };  
         var cenLng =(parseFloat(maxLng)+parseFloat(minLng))/2;  
         var cenLat = (parseFloat(maxLat)+parseFloat(minLat))/2;  
-        var zoom = this.getZoom(maxLng, minLng, maxLat, minLat);  
+        var zoom = this.getInnerZoom(maxLng, minLng, maxLat, minLat);  
   
         return {
           center:{
@@ -98,7 +102,7 @@ class Map{
    
     }
 
-    getZoom(maxLng, minLng, maxLat, minLat) {  
+    getInnerZoom(maxLng, minLng, maxLat, minLat) {  
         var zoom = ["50","100","200","500","1000","2000","5000","10000","20000","25000","50000","100000","200000","500000","1000000","2000000"]//级别18到3。  
         var pointA = Map.Point(maxLng,maxLat);  // 创建点坐标A  
         var pointB = Map.Point(minLng,minLat);  // 创建点坐标B  
@@ -145,6 +149,10 @@ class Map{
         return new BMap.Icon(url,size,opts)
     }
 
+    static Size(w,h){
+        return new BMap.Size(w,h);
+    }
+
     pointToPixel(){
         let blnPoint = arguments.length==1;
 
@@ -168,6 +176,18 @@ class Map{
        })
        
     }
+    clearOverlays(){
+        _.each(this.markers,m=>m.remove());
+        this.markers=[];
+    }
+    setZoom(zoom){this.ins.setZoom(zoom);}
+    getZoom(){return this.ins.getZoom()}
+    getCenter(){return this.ins.getCenter()}
+    getBounds(){return this.ins.getBounds()}
+    reset(){this.ins.reset()}
+    panTo(point){this.ins.panTo(point)}
+
+
 };
 
 export default Map;
@@ -179,11 +199,12 @@ let iconColor='red';
 
 //闪烁图标(类似雷达)
 export class FlickerIcon{
-    constructor(mapIns,point){
+    constructor(mapIns,point,info){
         this.mapIns=mapIns;
         this.Point=point;
         this.marker = Map.Marker(point,{icon:Map.Icon('/down.png')});
         this.id=`marker${_t.guid()}`;
+        this.parent=null;
         this.clickUnBind=null;
         this.clickCallback=[];
 
@@ -196,6 +217,11 @@ export class FlickerIcon{
                                         </div>
                                     </div>
                                     <div style="width:25px;height:25px;background:${color};border-radius:50%;position: absolute;top:9px;left:9px;"></div>
+                                    ${info?`
+                                        <div class="subBgColtwo" style="border-radius:5px;color:white;padding:5px 10px;position: absolute;left:100%;top: 10px;">
+                                            ${info}
+                                        </div>
+                                    `:''}
                                 </div>
                                 `,{
             border:'none',
@@ -207,7 +233,7 @@ export class FlickerIcon{
 
     add(){
         this.mapIns.addOverlay(this.marker);
-
+        this.mapIns.addMarker(this.parent || this);
         setTimeout(()=>{
             this.registerClick();
         },0)
@@ -238,7 +264,7 @@ export class FlickerIcon{
         this.Point=null;
         this.marker=null;
         this.id=null;
-        this.clickUnBind && this.clickUnBind();
+        this.clickUnBind && this.clickUnBind.unsubscribe();
         this.clickUnBind=null;
         this.clickCallback=null;
     }
@@ -272,7 +298,6 @@ export class BranchInfo{
     //添加控件
     addCtrl(){
         let point = this.addPolyline();
-
         this.addInfoArea(point,this.width,this.height,this.html);
     }
 

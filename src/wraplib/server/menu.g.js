@@ -10,16 +10,23 @@ export default{
       }
     */
     GetMenuKind(data){
-        this.baseBag.target='menu_type';
-        this.baseBag.method='get';
+        this.baseBag.type='GET';
+        this.baseBag.method='customModule/menuType';
         this.baseBag.data=data || {};
         return this.post(this.baseBag);
     },
     //获取自定义模块数据(keyid不传代表获取全部数据)
     getOperate(data){
-        this.baseBag.target='custom_module';
-        this.baseBag.method='get';
+        this.baseBag.type='GET';
+        this.baseBag.method='customModule';
         this.baseBag.data=data || {};
+        return this.post(this.baseBag);
+    },
+    //菜单排序
+    MenuSort(data){
+        this.baseBag.target='custom_module';
+        this.baseBag.method='orderby';
+        this.baseBag.data={orderby:data};
         return this.post(this.baseBag);
     }
 }

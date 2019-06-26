@@ -3,7 +3,31 @@
 .base-css(){
     .bgCol{background-color:@mainColor;}
     .bgColLine{background:linear-gradient(135deg,fadeout(@mainColor,20%),fadeout(@mainColor,30%))};
+    .bgColBorder{border-color:@mainColor !important;}
+    .subBgCol{background-color:@subColor;}
+    .subBgColtwo{background-color:@subColor2 !important;}
+    .subBgColtwoLine{background: linear-gradient(125deg,fadeout(@subColor2,30%), @subColor2);}
+    .subColtwo{color:@subColor2 !important;}
+    .subBgColtwoBorder{border-color:@subColor2 !important;}
+    .subBgColtwoBg{background-color:fadeout(@subColor2,50%) !important;}
+    .hoverSubBgColtwoBg:hover{background-color:fadeout(@subColor2,50%) !important;}
+    .subBgColtwoFont{color:#94d1f0;}
+    .hoverSubBgColtwo:hover{color:#94d1f0 !important;cursor:pointer;}
+    .subBgColThree{background-color:fadeout(#273f61,50%)}
+    .subBgColFour{background-color: fadeout(#435873,30%);}
+    .subBgColTwoAfter:after{background-color:fadeout(@subColor2,50%);}
+    .subBgColTwoBorderFadeout{border-color:fadeout(@subColor2,50%) !important;}
+
+    //头部人员信息背景色
+    .HeaderInfoBg{
+       background:linear-gradient(125deg, @mainColor 45px,@subColor 0%);
+    }
     .footerCol{background-color:@footerColor;}
+
+
+    //鼠标放上背景色
+    .hoverBgCol:hover{background-color:@mainColor;}
+
 
     //取消百度地图图标
     .anchorBL{display:none;}
@@ -12,7 +36,21 @@
     .iconHover:hover{.transLine(); color:red;}
 
     //弹窗样式
-    .layui-layer-title{background: @mainColor;color:white;}
+    .layui-layer-dialog,
+    .layui-layer-page{background:transparent;color:white;}
+
+   .layui-layer-title{
+        background:transparent;color:white;
+        background-image: url('../modules/HomePage/assets/imgs/homeListTop.png');
+        background-size: 100% 100%;
+        border:none;
+        padding-left: 50%;
+    }
+
+    .layui-layer-dialog .layui-layer-btn{background: #1f355a;padding: 10px !important;}
+    .layui-layer-dialog .layui-layer-btn a{font-size:12px;}
+    
+    
     .layui-layer-ico{
         font-family: "iconfont" !important;
         font-size: 16px;
@@ -24,8 +62,67 @@
     }
     .layui-layer-ico::before{content: "\e641";}
 
+    .layui-layer-content{height:~'calc(100% - 42px)';}
+    .layui-layer-dialog .layui-layer-content,
+    .layui-layer-page .layui-layer-content{
+        color:white !important;
+        background-image: url('../assets/page_bg.jpg');
+        background-size: 100% 100%;
+    }
+    .layui-layer-page .layui-layer-content input{color:white;}
+    .layui-layer-page .layui-layer-content textarea{background: #515e82;color:white;}
+
     //加载中容器样式
-    .Loading(@mainColor)
+    .Loading(@mainColor);
+
+    //清除浮动
+    .clearfix{clear:both;}
+
+    .row{margin:0px;}
+
+    .ellipsis{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        display: block;
+    }
+
+    //场所树形控件选择框样式
+    .uncheckIcon_tree,.checkIcon_tree{
+        position: relative;
+        padding: 0px 10px;
+    }
+    .uncheckIcon_tree:before{
+        content:'';
+        width: 20px;
+        height: 20px;
+        background: url("../assets/green.png") no-repeat;
+        cursor: pointer;
+        position: absolute;
+        top:0px;
+        left:0px;
+    }
+
+    .checkIcon_tree:before{
+        content:'';
+        width: 20px;
+        height: 20px;
+        background: url("../assets/green.png") no-repeat;
+        cursor: pointer;
+        position: absolute;
+        background-position: -40px 0px;
+        top:0px;
+        left:0px;
+    }
+
+    //CheckBox
+    .el-checkbox__input.is-disabled+span.el-checkbox__label,
+    .el-checkbox{color:white;}
+    .el-checkbox__input.is-disabled.is-checked .el-checkbox__inner::after{border-color:white;}
+    .el-checkbox__input.is-disabled.is-checked .el-checkbox__inner{background-color:@subColor2;border-color:@subColor2;}
+    //Radio
+    .el-radio{color:white;}
 }
+
 
 

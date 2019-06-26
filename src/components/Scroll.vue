@@ -6,8 +6,8 @@
                 <slot></slot>
             </div>
         </div>
-        <div name="scrollBar" class="scrollbar" :style="scrollStyle || {}" v-show="blnShowScroll">
-            <div class="handle bgCol"></div>
+        <div :id="scrollBarId" name="scrollBar" class="scrollbar" :style="scrollStyle || {}" v-show="blnShowScroll">
+            <div :id="handleId" class="handle subBgColtwo"></div>
         </div> 
     </div>
 </template>
@@ -22,7 +22,7 @@ export default {
     listen:function(){
        this.$nextTick(()=>{
            if(!this.scrollIns){
-             this.scrollDom=$('#'+this.id).find('div[name="scrollBar"]');
+             this.scrollDom=$('#'+this.id).find(`div[id="${this.scrollBarId}"]`);
              this.initScroll();
            }
            this.reloadyScroll();
@@ -31,8 +31,10 @@ export default {
   },
   mounted(){
     this.id="scroll"+_t.guid();
+    this.scrollBarId='scrollBar'+_t.guid();
+    this.handleId='handle'+_t.guid();
     this.$nextTick(()=>{
-        this.scrollDom=$('#'+this.id).find('div[name="scrollBar"]');
+        this.scrollDom=$('#'+this.id).find(`div[id="${this.scrollBarId}"]`);
         this.initScroll();
     });
     this.istore =this.$store || this.store;
@@ -41,6 +43,8 @@ export default {
   data () {
     return {
       id:0,
+      scrollBarId:0,
+      handleId:0,
       scrollIns:null,
       blnShowScroll:false,
       scrollDom:null,
@@ -56,11 +60,12 @@ export default {
     initScroll(){
      let self=this;
      let id=this.id;
+     let scrollBarId=this.scrollBarId;
      
      this.scrollIns = new Scroll($(self.$el).find('.scroll_container'),{
         speed:200,
         scrollBy:50,
-        scrollBar:`#${id} .scrollbar`,
+        scrollBar:`#${id} #${scrollBarId}`,
         dynamicHandle: 0,
         dragHandle: 1,
         mouseDragging: 0});
@@ -72,17 +77,21 @@ export default {
     },
     //重新计算滚动条高度
     reloadyScroll(){
+      if(!this.scrollIns) return;
       this.scrollIns.reload();
       this.blnShowScroll=this.scrollIns.rel.slideeSize-10>this.scrollIns.rel.frameSize;
       this.setScrollH();
       this.scrollIns.reload();
+    },
+    reloadScroll(){
+      this.reloadyScroll();
     },
     //设置滚动条高度
     setScrollH(){
       let scrollContainerH=this.scrollDom.height();
       let gap=(this.scrollIns.rel.slideeSize-this.scrollIns.rel.frameSize)*(this.scrollIns.rel.frameSize/this.scrollIns.rel.slideeSize);
 
-      this.scrollDom.find('.handle').css('height',(scrollContainerH-gap)<20?20:(scrollContainerH-gap)+'px');
+      this.scrollDom.find(`div[id="${this.handleId}"]`).css('height',(scrollContainerH-gap)<20?20:(scrollContainerH-gap)+'px');
     }
   }
 }
@@ -92,7 +101,7 @@ export default {
     .Scroll{width:100%;height:100%;position:relative;}
     .Scroll .scroll_container{width:100%;height:100%;position: relative;}
     .Scroll .scrollbar:hover {cursor:pointer;}
-    .Scroll .scrollbar { z-index:100;border:1px solid #d8d8d8;border-radius:5px;width: 10px; height: ~"calc(100% - 20px)"; position: absolute;right: 5px;top:10px;background:white;}
-    .Scroll .scrollbar .handle {width: 100%;height: 100px;border-radius: 5px;}
+    .Scroll .scrollbar { z-index:100;border-radius:5px;width:1px; height: ~"calc(100% - 20px)"; position: absolute;right: 5px;top:10px;background:white;}
+    .Scroll .scrollbar .handle {width: 10px;margin-left:-4px;height: 100px;}
 
 </style>

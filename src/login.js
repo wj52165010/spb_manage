@@ -1,12 +1,17 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
+import Login from './Login.vue'
 import store from './store/store'
+import AutoSer from './autoSer'
+
+import 'assets/font-awesome-4.7.0/less/font-awesome.less'
+import './theme/default/default.less'
 
 Vue.config.productionTip = false
 
+//注册全局ser实例分支
+AutoSer.register();
+
 new Vue({
-  router,
   store,
-  render: h => h(App)
-}).$mount('#app')
+  render: h => h(Login)
+}).$mount('#login')

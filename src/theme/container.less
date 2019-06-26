@@ -28,12 +28,28 @@
     }
     .Loading:before{
         content:'';
-        position:absolute;top:0px;left:0px;bottom:0px;right:0px;
+        position:absolute;top:4px;left:4px;bottom:4px;right:4px;
         background:linear-gradient(@colTwo,@colTwo);
-        background-size:calc(100% - 4px) calc(100% - 4px);
-        background-position:2px 2px;
+        background-size:100% 100%;
+        background-position:0px 0px;
+
+        // background:linear-gradient(135deg,transparent 5px,@colTwo 0%,@colTwo),
+        //            linear-gradient(-135deg,transparent 5px,@colTwo 0%,@colTwo),
+        //            linear-gradient(45deg,transparent 5px,@colTwo 0%,@colTwo),
+        //            linear-gradient(-45deg,transparent 5px,@colTwo 0%,@colTwo);
+        // background-size:calc(50% - 4px) calc(50% - 4px);
+        // background-position:4px 4px,calc(100% - 4px) 4px,4px calc(100% - 4px),calc(100% - 4px) calc(100% - 4px);
+        
         background-repeat: no-repeat;
         border-radius:5px;
+        z-index:-1;
+    }
+
+    .Loading:after{
+        content:'';
+        position:absolute;top:0px;left:0px;right:0px;bottom:0px;
+        //background: repeating-linear-gradient(60deg,#fb3, #fb3 2px, transparent 0, transparent 30px);//斑马线
+        z-index:-100;
     }
       
     .Loading > div{

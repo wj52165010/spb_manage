@@ -31,7 +31,8 @@ module.exports = {
                 'ser':path.resolve(__dirname,'./src/wraplib/server/server.js'),
                 'scroll':path.resolve(__dirname,'./src/wraplib/scroll.js'),
                 'event':path.resolve(__dirname,'./src/wraplib/event.js'),
-                '_':path.resolve(__dirname,'./src/libraries/underscore/index.js')
+                '_':path.resolve(__dirname,'./src/libraries/underscore/index.js'),
+                'XDate':path.resolve(__dirname,'./src/libraries/datepicker/xdate.js'),
             }
         },
         plugins:[
@@ -41,7 +42,8 @@ module.exports = {
                 _t:['tool','default'],
                 dialog:['dialog','default'],
                 ser:['ser','default'],
-                _:'_'
+                _:'_',
+                XDate:'XDate',
             }),
             new webpack.DllReferencePlugin({
                 context: __dirname,

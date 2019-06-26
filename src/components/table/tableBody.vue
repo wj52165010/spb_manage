@@ -20,8 +20,14 @@ export default {
     }
   },
   watch:{
-    listen(){
-      this.showInfo();
+    listen:{
+      deep:true,
+      handler:function(){
+        this.showInfo();
+        this.$nextTick(()=>{
+          this.$parent.reloadScroll();
+        })
+      }
     },
     blnLoading(){
       this.$refs.loading.blnShow(this.blnLoading);
@@ -41,6 +47,7 @@ export default {
   },
   render: function (createElement) {
     let rows=_.filter(this.$slots.default,d=>d.tag);
+    let hasChlid=_.filter(rows,r=>r.data.attrs && r.data.attrs.child).length>0;
     return createElement(
       'div', 
       {
@@ -64,14 +71,17 @@ export default {
                 click:(e)=>{this.rowClick(e,r,i)}
               },
               class:Object.assign({
+                'bodyRow':!(r.data.attrs && r.data.attrs.child),
                 rowClick:r.componentOptions && r.componentOptions.listeners && r.componentOptions.listeners.click,
-                [r.data.staticClass]:!!r.data.staticClass
+                [r.data.staticClass]:!!r.data.staticClass,
+                subBgColThree:hasChlid?i%4==0:i%2==0,
+                subBgColFour:hasChlid?i%4==2:i%2!=0,
               },r.data.class || {})
             },
             rows[i].componentOptions.children)
           )
         ),
-        createElement(Loading,{ref:'loading'}),
+        createElement(Loading,{ref:'loading',props:{simple:true}}),
         createElement('div',{
           ref:'info',
           style:{
@@ -96,7 +106,7 @@ export default {
   },
   methods:{
     showInfo(){
-      if(this.listen && this.listen.length>0){
+      if(this.listen && this.listen.length>0 || this.blnLoading){
         $(this.$refs.info).hide();
       }else{
         $(this.$refs.info).show();
@@ -114,11 +124,11 @@ export default {
 <style lang="less">
   @import "../../css/variables.less";
   @import './common.less';
-  .tableBbody{width:100%;height:100%;position:relative;}
+  .tableBbody{width:100%;height:100%;position:relative;font-size:12px;}
 
   .tableBbody .rowClick{cursor:pointer;}
 
-  .tableBbody .rowClick:hover{color:white;background-color:#777777 !important;}
+  .tableBbody .bodyRow:hover{color:white;background-color:#777777 !important;}
 
 </style>
 
